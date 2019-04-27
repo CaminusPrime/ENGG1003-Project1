@@ -3,15 +3,63 @@
 
 #include "pch.h"
 #include <math.h>
+#include <string>
 #include <iostream>
 
 
 int main()
 {
-  
-	printf("Hello World");
+	/*
+	std::string userInput;
+	scanf(userInput);
+	*/
 
+	// Declaring alphabetical array in LOWER case format
+	char lwrCase[][25] = { "a", "b", "c", "d", "e", "f", "g", "h","I", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+
+	// Declaring alphabetical array in UPPER case format
+	char uprCase[][25] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
+	printf("ENGG1003 Project 1\nC3258834\t Cameron Down\n\n");
+	printf("English Text Ciphers\n");
+	
+
+
+
+
+	printf("Character =\t%s \n", lwrCase[0]);
+	printf("Character =\t%s \n", uprCase[0]);
+	
+	
+	/*
+	for (i = 0; str[i] != 0; i++)
+		if (str[i] <= 'z' && str[i] >= 'a')
+			srt[i] -= 32;
+	*/
 }
+
+
+// Rotation cipher encryption 
+
+
+// Rotation cipher decryption 
+
+
+
+// Substitution cipher encryption
+
+// Substitution cipher decryption
+
+
+//decrpyption with rotation cipher using text only
+
+// decryption with substitution cipher given text only
+
+
+
+
+
+
 
 
 
