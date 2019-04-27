@@ -9,6 +9,66 @@
 
 int main()
 {
+	int x;
+	
+	printf("ENGG1003 Project 1\nC3258834 - Cameron Down\n");
+	printf("--------------------------------------------\n");
+	printf("English Text Ciphers\n");
+	printf("--------------------------------------------\n");
+	// User input display
+	printf("Choose your input method: \n 1 - Hard code sample\n 2 - Type your own message\n 3 - Read from file\n");
+
+	scanf_s("%d", &x);
+	if (x >= 4)
+	{
+		printf("Please enter 1, 2 or 3\n");
+		scanf_s("%d", &x);
+	}
+	printf("%d", x);
+
+
+	//Section I (Hard code process)
+	{
+	printf("\n>>> READING HARD CODE SAMPLE\n");
+	
+	
+	} 
+
+
+	//Section II (User input process)
+	{
+		printf("\nPlease type message below:\n");
+
+		printf("Would you like to use?\n 1 - Rotation cipher\n 2 - Substitution cipher");
+		// scan for 1 or 2
+		// if 1
+		{
+			//Rotation Cipher output
+			printf("Enter rotation amount:");
+			// scan amount as x
+			// function call
+			printf(">>> ENCRYPTED");
+			// print output 
+		}
+		
+		// if 2
+		{
+
+		}
+	}
+
+
+	/*//Section III (file reading processes)
+	{
+	printf("\n>>> READING FILE");
+	int a;
+	scanf("%d", &a);
+	printf(">>> FILE FOUND\n%d", a);
+	
+	}
+	*/
+
+
 	/*
 	std::string userInput;
 	scanf(userInput);
@@ -20,22 +80,19 @@ int main()
 	// Declaring alphabetical array in UPPER case format
 	char uprCase[][25] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
-	printf("ENGG1003 Project 1\nC3258834\t Cameron Down\n\n");
-	printf("English Text Ciphers\n");
+	//printf("Character =\t%s \n", lwrCase[0]);
+	//printf("Character =\t%s \n", uprCase[0]);
 	
 
 
-
-
-	printf("Character =\t%s \n", lwrCase[0]);
-	printf("Character =\t%s \n", uprCase[0]);
-	
 	
 	/*
 	for (i = 0; str[i] != 0; i++)
 		if (str[i] <= 'z' && str[i] >= 'a')
 			srt[i] -= 32;
 	*/
+
+	return (0);
 }
 
 
