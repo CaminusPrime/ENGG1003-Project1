@@ -28,7 +28,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="inputDatat.txt">
+    <Text Include="inputData.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

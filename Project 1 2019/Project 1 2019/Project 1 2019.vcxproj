@@ -163,7 +163,7 @@
     <ClCompile Include="Project 1 2019.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="inputDatat.txt" />
+    <Text Include="inputData.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

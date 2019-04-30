@@ -37,17 +37,17 @@ int main()
 	/*
 	Variable description:
 	FILE operator for reading file as per section III
-	int- "x" used for choice selection, "cr" used for rotation cipher.
-
-
+	"x" used for choice selection, "c" characters, "str" user input string
+	"res" result from rotation cipher function, "hdCodemsg"Hard coded message in the form of a char string
+	   
 
 	*/
 
 	// variable declaring
-	//FILE *input;
-	int x; 
+	FILE *inputData;
+	int x;
 	char str[1024];
-	char res[20];
+	char res[1024];
 	char c;
 	// Hard code example
 	char hdCodemsg[] = "SJSFMPCRM WG O USBWIG. PIH WT MCI XIRUS O TWGV PM WHG OPWZWHM HC QZWAP O HFSS, WH KWZZ ZWJS WHG KVCZS ZWTS PSZWSJWBU HVOH WH WG GHIDWR. - OZPSFH SWBGHSWB";
@@ -68,7 +68,7 @@ int main()
 	printf("ENGG1003 Project 1\nC3258834 - Cameron Down\n");
 	printf("--------------------------------------------\n");
 	printf("English Text Ciphers\n");
-	printf("STATUS:\n>>> HARD CODE\t-\tUNFINISHED\n>>> USER INPUT\t-\tUNFINISHED\n>>> FILE READ\t-\tUNFINISHED\n");
+	printf("STATUS:\n>>> HARD CODE\t-\tROTATION CIPHER WORKING\n>>> USER INPUT\t-\tUNFINISHED\n>>> FILE READ\t-\tUNFINISHED\n");
 	printf("--------------------------------------------\n");
 	
 	// User input display
@@ -87,35 +87,54 @@ int main()
 
 
 			printf("\n--------------------------------------------\n");
-			printf("\n>>> READING HARD CODE SAMPLE:\n%s\n", hdCodemsg);
-			printf("Enter a number between 1 & 25 to try and decrypt this message\n");
-			scanf_s("%d", &x);
+			printf("\n>>> READING HARD CODE SAMPLE:\n\n");
+			printf("Rotation: 0\nMessage: %s\n\n", hdCodemsg);
+			while (x < 26)
 
-			for (std::size_t i = 0; i < strlen(str); i++)
 			{
+
+				for (std::size_t i = 0; i < strlen(hdCodemsg); i++)
+				{
 					c = hdCodemsg[i];
 					res[i] = capital(c);
+					//printf("ASCII value of %c = %d\n", res[i], res[i]);
+				}
+
+				for (std::size_t i = 0; i < strlen(hdCodemsg); i++)
+				{
+					res[i] = rotation(res[i], x);
+				}
+				printf("Rotation: %d\nMessage: %s\n\n", x, res);
+				x = x + 1;
 			}
-			if (x >= 26)
+
+
+
+			printf("enter rotation amount : ");
+			scanf_s("%d", &x);
 			{
-				printf("Please enter a number up to 25\n");
-				scanf_s("%d", &x);
+				for (std::size_t i = 0; i < strlen(hdCodemsg); i++)
+				{
+					c = hdCodemsg[i];
+					res[i] = capital(c);
+					//printf("ASCII value of %c = %d\n", res[i], res[i]);
+				}
+
+				for (std::size_t i = 0; i < strlen(hdCodemsg); i++)
+				{
+					res[i] = rotation(res[i], x);
+				}
+				printf("Rotation: %d\nMessage: %s\n\n", x, res);
+
+
+			
 			}
 
-			for (std::size_t i = 0; i < strlen(str); i++)
-			{
-				res[i] = rotation(res[i], x);
-			}
-
-			printf("Decrypted output: %s\n", res);
-			// print hard coded encrypted message
-			// choose how to decrypt it, scan for user input
-			// print out decoded message
-
+			
 			printf("\n--------------------------------------------\n");
 
 			
-
+			return 0;
 		} 
 
 	
@@ -200,7 +219,7 @@ int main()
 					printf("\n--------------------------------------------\n");
 				}
 
-				return (0);
+			
 			}
 
 
@@ -211,26 +230,12 @@ int main()
 	/*
 				printf("\n--------------------------------------------\n");
 				printf("\n>>> READING FILE");
-				int a;
-
-					input = fopen("input.txt", "r");
-
-					while (feof(input) == 0)
-					{
-						char c;
-						fscanf(input, "%c", &c);
-						printf("%c", c);
-					}
-					if (input == NULL) 
-					{
-						perror("fopen()");
-						return;
-					}
-
-
-				scanf("%d", &a);
+				
 
 				printf(">>> FILE FOUND\n%d\n>>> FILE READ", a);
+
+				// Encrypt or decrypt?
+
 
 	
 
@@ -382,6 +387,7 @@ double ENCsubCipher ()
 {
 
 }
+
 // Substitution cipher decryption
 double DECsubCipher ()
 {
