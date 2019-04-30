@@ -20,15 +20,17 @@
 
 #include "pch.h"
 #include <math.h>
-#include <string>
+#include <string.h>
 #include <iostream>
 #include <stdio.h>
+#include <conio.h>
 
-
+//#define _CRT_SECURE_NO_WARNINGS
 
 //char ENCroCipher();
 //double DECroCipher();
-char Capitalise(char &c);
+char capital(char c);
+char rotation(char str, int x);
 
 int main()
 {
@@ -43,9 +45,12 @@ int main()
 
 	// variable declaring
 	//FILE *input;
-	int x, cr; 
+	int x; 
 	char str[1024];
-	char Capitalise[1024];
+	char res[20];
+	char c;
+	// Hard code example
+	char hdCodemsg[] = "SJSFMPCRM WG O USBWIG. PIH WT MCI XIRUS O TWGV PM WHG OPWZWHM HC QZWAP O HFSS, WH KWZZ ZWJS WHG KVCZS ZWTS PSZWSJWBU HVOH WH WG GHIDWR. - OZPSFH SWBGHSWB";
 
 	/* 
 	//Declaring alphabetical array in LOWER case format
@@ -63,6 +68,7 @@ int main()
 	printf("ENGG1003 Project 1\nC3258834 - Cameron Down\n");
 	printf("--------------------------------------------\n");
 	printf("English Text Ciphers\n");
+	printf("STATUS:\n>>> HARD CODE\t-\tUNFINISHED\n>>> USER INPUT\t-\tUNFINISHED\n>>> FILE READ\t-\tUNFINISHED\n");
 	printf("--------------------------------------------\n");
 	
 	// User input display
@@ -75,18 +81,41 @@ int main()
 		scanf_s("%d", &x);
 	}
 		
-		//Section I (Hard code process)
+			//Section I (Hard code process)
 		if (x == 1)
 		{
 
-			printf("\n--------------------------------------------\n");
-			printf("\n>>> READING HARD CODE SAMPLE\n");
 
+			printf("\n--------------------------------------------\n");
+			printf("\n>>> READING HARD CODE SAMPLE:\n%s\n", hdCodemsg);
+			printf("Enter a number between 1 & 25 to try and decrypt this message\n");
+			scanf_s("%d", &x);
+
+			for (std::size_t i = 0; i < strlen(str); i++)
+			{
+					c = hdCodemsg[i];
+					res[i] = capital(c);
+			}
+			if (x >= 26)
+			{
+				printf("Please enter a number up to 25\n");
+				scanf_s("%d", &x);
+			}
+
+			for (std::size_t i = 0; i < strlen(str); i++)
+			{
+				res[i] = rotation(res[i], x);
+			}
+
+			printf("Decrypted output: %s\n", res);
 			// print hard coded encrypted message
 			// choose how to decrypt it, scan for user input
 			// print out decoded message
-	
-			return (0);
+
+			printf("\n--------------------------------------------\n");
+
+			
+
 		} 
 
 	
@@ -95,19 +124,33 @@ int main()
 			{
 		
 				printf("\n--------------------------------------------\n");
-				printf("\n>>> READING FROM USER INPUT\nPlease type message below:\n");
-				//scanf("%s\n", str);
-
-
-				int StrLen = strlen(str);
-				for (int i = 0; i <= StrLen; i++)
+				printf("\n>>> READING FROM USER INPUT\nPlease type message:\n");
+				scanf_s("%s", str, 1024);     // SCAN FUNCTION NOT WORKING, FIX HERE
+				
+				printf("you entered: %s\n", str);
+				
+				for (std::size_t i = 0; i < strlen(str); i++)
 				{
-					char a = str[i];
-					Capitalise[i] = Capitalise(a);
+					
+					c = str[i];
+					res[i] = capital(c);
+					
+					/*
+					for (int i = 0; i < 1025; i++)
+					{
+						if (c != 13)
+						{
+							printf("%d", c);
+						}
+						else if (c == 13)
+						{
+							i = 10000;
+						}
+					}
+					*/
 				}
 
-				char Capitalise(char &c) {};
-
+				printf("capitalised: %s\n", res); // Outputs capitalised result
 
 
 				printf("Would you like to use?\n 1 - Rotation cipher\n 2 - Substitution cipher\n");
@@ -123,26 +166,29 @@ int main()
 					//Rotation Cipher output
 					printf("Enter rotation amount:\n");
 					// scan amount as x
-					scanf_s("%d", &cr);
+					scanf_s("%d", &x);
 
-					if (cr >= 26)
+					if (x >= 26)
 					{
 						printf("Please enter a number up to 25\n");
-						scanf_s("%d", &cr);
+						scanf_s("%d", &x);
 					}
-					//printf("%d", cr);
-					// function call
+					
+					for (std::size_t i = 0; i < strlen(str); i++)
+					{
+						res[i] = rotation(res[i], x);
+					}
 
-
-
-
-
+					printf("Enctypted output: %s\n", res);
+					
+			
 
 					printf(">>> ENCRYPTED\n");
-					// print enncrypted output 
+					 
 					// output encrypt to file
+
 					printf("\n--------------------------------------------\n");
-					return (0);
+					
 				}
 		
 				if (x == 2)
@@ -151,18 +197,18 @@ int main()
 
 
 
-
+					printf("\n--------------------------------------------\n");
 				}
 
-				printf("\n--------------------------------------------\n");
+				return (0);
 			}
 
 
-/*
+
 				//Section III (file reading processes)
 				if (x == 3)
 				{
-	
+	/*
 				printf("\n--------------------------------------------\n");
 				printf("\n>>> READING FILE");
 				int a;
@@ -184,15 +230,19 @@ int main()
 
 				scanf("%d", &a);
 
-				printf(">>> FILE FOUND\n%d", a);
+				printf(">>> FILE FOUND\n%d\n>>> FILE READ", a);
+
 	
+
+
+
 				printf("\n--------------------------------------------\n");
+	*/
 	
-	
-					return (0);
+					
 				}
 				
-*/
+
 
 	/*
 	std::string userInput;
@@ -209,7 +259,7 @@ int main()
 			srt[i] -= 32;
 	*/
 
-	return (0);
+	return 0;
 }
 
 
@@ -219,25 +269,61 @@ int main()
 
 
 /* Copy paste s***:
-
 	printf("\n--------------------------------------------\n");
-
-
 */
 
 // Functions
 
 
 
-
-char Capitalise(char &c)
+// function for reading and converting to captials 
+char capital(char c)
 {
-	if (c >= 97 && c <= 122)
+	if ((c <= 64) || (c >= 91 && c <= 96) || (c >= 123 && c <= 126)) // returning non letter outputs
 	{
-		printf("lower case letter detected\n");
-		c -= 32;
+		//printf("%c", c);
+		return c;
+	}
+	else if (c >= 97 && c <= 122)
+	{
+		//printf("lower case letter detected\n"); // used for testing
+		c -= 32; // this captializes the letter using ASCII
+		return c;
 	}
 }
+
+
+
+
+
+// Rotation cipher for encrypting
+char rotation(char c, int x)
+{
+	char r;
+	r = c + x;
+	if ((c >= 32 && c <= 64) || (c >= 91 && c <= 96) || (c >= 123 && c <= 126)) // returning non letter outputs
+	{
+		//printf("%c", c);
+		return c;
+	}
+	if (r >= 91)
+	{
+		int e;
+		e = (x + c) - 91;
+		r = 65 + e;
+	}
+	if (r <= 64)
+	{
+		int e;
+		e = (x + c) - 65;
+		r = 91 + e;
+	}
+
+	//printf("value of rotation = %c // %d", r, r);
+
+	return r;
+}
+
 /*
 
 
@@ -245,7 +331,28 @@ char Capitalise(char &c)
 char ENCroCipher ()
 {
 	char result;
-	int r; // rotation
+
+	char c, r;
+	char str[1024];
+	int x;
+	   printf("enter rotation amount : \n");
+	scanf("%d", &x);
+		r = c + x;
+	if(r >= 91)
+	{
+	  int e;
+	  e = (x + c) - 91;
+	  r = 65 + e;
+	}
+	if(r <= 64)
+	{
+	  int e;
+	  e = (x + c) - 65;
+	  r = 91 + e;
+	}
+	printf("value of rotation = %c // %d", r, r);
+
+
 
   // Random number generator
   srand(time(NULL));
