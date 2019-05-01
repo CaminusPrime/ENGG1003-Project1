@@ -17,18 +17,15 @@
 	Anyway heres a thing...
 */
 
-
-#include "pch.h"
 #include <math.h>
 #include <string.h>
 #include <iostream>
 #include <stdio.h>
 #include <conio.h>
+#define _CRT_SECURE_NO_WARNINGS
 
-//#define _CRT_SECURE_NO_WARNINGS
 
-//char ENCroCipher();
-//double DECroCipher();
+
 char capital(char c);
 char rotation(char str, int x);
 
@@ -44,10 +41,13 @@ int main()
 	*/
 
 	// variable declaring
-	FILE *inputData;
+	FILE *input;
+	FILE *output;
+	errno_t err;
 	int x;
-	char str[1024];
-	char res[1024];
+	//int i;
+	char str[200];
+	char res[200];
 	char c;
 	// Hard code example
 	char hdCodemsg[] = "SJSFMPCRM WG O USBWIG. PIH WT MCI XIRUS O TWGV PM WHG OPWZWHM HC QZWAP O HFSS, WH KWZZ ZWJS WHG KVCZS ZWTS PSZWSJWBU HVOH WH WG GHIDWR. - OZPSFH SWBGHSWB";
@@ -63,12 +63,20 @@ int main()
 	//printf("Character =\t%s \n", uprCase[0]);
 	*/
 
+
+
+
+
+
+
+
 	
 	// Output header
 	printf("ENGG1003 Project 1\nC3258834 - Cameron Down\n");
 	printf("--------------------------------------------\n");
 	printf("English Text Ciphers\n");
-	printf("STATUS:\n>>> HARD CODE\t-\tROTATION CIPHER WORKING\n>>> USER INPUT\t-\tUNFINISHED\n>>> FILE READ\t-\tUNFINISHED\n");
+	printf("STATUS:\n>>> HARD CODE\t-\tROTATION CIPHER WORKING!\n>>> USER INPUT\t-\tROTATION CIPHER WORKING!\n>>> FILE READ\t-\tUNFINISHED\n");
+	printf("BUG REPORT:\n-Output from capitalise returns weird result\n-some entries cause the program to crash at the end prompting a message claiming data corruption\n-string wont pickup anything after the first whitespace, this is a problem in scanf_S\n");
 	printf("--------------------------------------------\n");
 	
 	// User input display
@@ -81,6 +89,8 @@ int main()
 		scanf_s("%d", &x);
 	}
 		
+
+
 			//Section I (Hard code process)
 		if (x == 1)
 		{
@@ -90,17 +100,16 @@ int main()
 			printf("\n>>> READING HARD CODE SAMPLE:\n\n");
 			printf("Rotation: 0\nMessage: %s\n\n", hdCodemsg);
 			while (x < 26)
-
 			{
 
-				for (std::size_t i = 0; i < strlen(hdCodemsg); i++)
+				for (int i = 0; i < strlen(hdCodemsg); i++)
 				{
 					c = hdCodemsg[i];
 					res[i] = capital(c);
 					//printf("ASCII value of %c = %d\n", res[i], res[i]);
 				}
 
-				for (std::size_t i = 0; i < strlen(hdCodemsg); i++)
+				for (int i = 0; i < strlen(hdCodemsg); i++)
 				{
 					res[i] = rotation(res[i], x);
 				}
@@ -124,52 +133,51 @@ int main()
 				{
 					res[i] = rotation(res[i], x);
 				}
-				printf("Rotation: %d\nMessage: %s\n\n", x, res);
+				printf("\nRotation: %d\nMessage: %s\n", x, res);
 
 
 			
 			}
 
 			
+			
 			printf("\n--------------------------------------------\n");
 
 			
-			return 0;
 		} 
 
 	
 			//Section II (User input process)
 			if (x == 2)
 			{
-		
+				
 				printf("\n--------------------------------------------\n");
 				printf("\n>>> READING FROM USER INPUT\nPlease type message:\n");
-				scanf_s("%s", str, 1024);     // SCAN FUNCTION NOT WORKING, FIX HERE
 				
+				
+				scanf("%s", str);     // SCAN FUNCTION NOT WORKING, FIX HERE
 				printf("you entered: %s\n", str);
-				
 				for (std::size_t i = 0; i < strlen(str); i++)
 				{
+					
 					
 					c = str[i];
 					res[i] = capital(c);
 					
 					/*
-					for (int i = 0; i < 1025; i++)
+					if (c != 13)
 					{
-						if (c != 13)
-						{
-							printf("%d", c);
-						}
-						else if (c == 13)
-						{
-							i = 10000;
-						}
+						printf("%c", c);
+					}
+					else if (c == 13)
+					{
+						i = 10000;
 					}
 					*/
+					
 				}
-
 				printf("capitalised: %s\n", res); // Outputs capitalised result
+				
 
 
 				printf("Would you like to use?\n 1 - Rotation cipher\n 2 - Substitution cipher\n");
@@ -204,15 +212,17 @@ int main()
 
 					printf(">>> ENCRYPTED\n");
 					 
-					// output encrypt to file
+					
+					
+
 
 					printf("\n--------------------------------------------\n");
-					
+					return 0;
 				}
-		
 				if (x == 2)
 				{
 					//Substitution Cipher output
+					printf("\n>>> SUBSTITUTION CIPHER INCOMPLETE\n");
 
 
 
@@ -227,42 +237,94 @@ int main()
 				//Section III (file reading processes)
 				if (x == 3)
 				{
-	/*
-				printf("\n--------------------------------------------\n");
-				printf("\n>>> READING FILE");
-				
-
-				printf(">>> FILE FOUND\n%d\n>>> FILE READ", a);
-
-				// Encrypt or decrypt?
-
-
-	
+					{
+						printf("\n--------------------------------------------\n");
+						printf("\n>>> READING FILE\n");
+						
+						// file opening
+						input = fopen("inputData.txt", "r");
+						output = fopen("output.txt", "w");
+						int spaces = 0;
 
 
+						// Error checking
+						err = fopen_s(&input, "inputData.txt", "r");
+						if (err == 0)
+						{
+							printf_s(">>> FILE FOUND\n>>> FILE READ\n");
+						}
+						else /*for when reading files fails*/
+						{
+							printf_s(">>>Error opening inputData, please check the file and try again<<<\n");
+							return 0;
+						}
+						while (feof(input) == 0)
+						{
+							fscanf_s(input, "%c", &str); //Scaning for variable
+							
+							
+							for (std::size_t i = 0; i < strlen(str); i++)
+							{
 
-				printf("\n--------------------------------------------\n");
-	*/
-	
-					
+								// function calling
+								c = str[i];
+								res[i] = capital(c);
+								if (c == 32)
+									spaces++;
+								while (x < 26) // loops read string out in each possible combination
+								{
+									for (int i = 0; i < strlen(str); i++)
+									{
+										res[i] = rotation(res[i], x);
+									}
+									printf("Rotation: %d\nMessage: %s\n\n", x, res);
+									x = x + 1;
+								}
+								
+							}
+
+							printf("enter rotation amount : ");
+							scanf_s("%d", &x);
+							{
+								for (std::size_t i = 0; i < strlen(str); i++)
+								{
+									c = str[i];
+									res[i] = capital(c);
+									//printf("ASCII value of %c = %d\n", res[i], res[i]);
+								}
+
+								for (std::size_t i = 0; i < strlen(str); i++)
+								{
+									res[i] = rotation(res[i], x);
+								}
+								printf("\nRotation: %d\nMessage: %s\n", x, res);
+							}
+							fprintf(output, "%s", res); // Printing variable
+						}
+						
+
+
+						//printf("\n>>> SUBSTITUTION CIPHER INCOMPLETE\n");
+
+						//printf(">>> FILE FOUND\n%d\n>>> FILE READ", str);
+
+						// Encrypt or decrypt?
+
+
+						fclose(input);
+
+
+						printf("\n--------------------------------------------\n");
+
+
+					}
 				}
 				
 
 
-	/*
-	std::string userInput;
-	scanf(userInput);
-	*/
+				
+				//fclose(outputData);
 
-	
-
-
-	
-	/*
-	for (i = 0; str[i] != 0; i++)
-		if (str[i] <= 'z' && str[i] >= 'a')
-			srt[i] -= 32;
-	*/
 
 	return 0;
 }
@@ -279,9 +341,7 @@ int main()
 
 // Functions
 
-
-
-// function for reading and converting to captials 
+// Function I: for reading and converting to captials 
 char capital(char c)
 {
 	if ((c <= 64) || (c >= 91 && c <= 96) || (c >= 123 && c <= 126)) // returning non letter outputs
@@ -301,7 +361,7 @@ char capital(char c)
 
 
 
-// Rotation cipher for encrypting
+//Function II: Rotation cipher for encrypting
 char rotation(char c, int x)
 {
 	char r;
@@ -323,42 +383,12 @@ char rotation(char c, int x)
 		e = (x + c) - 65;
 		r = 91 + e;
 	}
-
 	//printf("value of rotation = %c // %d", r, r);
 
 	return r;
 }
 
 /*
-
-
-// Rotation cipher encryption 
-char ENCroCipher ()
-{
-	char result;
-
-	char c, r;
-	char str[1024];
-	int x;
-	   printf("enter rotation amount : \n");
-	scanf("%d", &x);
-		r = c + x;
-	if(r >= 91)
-	{
-	  int e;
-	  e = (x + c) - 91;
-	  r = 65 + e;
-	}
-	if(r <= 64)
-	{
-	  int e;
-	  e = (x + c) - 65;
-	  r = 91 + e;
-	}
-	printf("value of rotation = %c // %d", r, r);
-
-
-
   // Random number generator
   srand(time(NULL));
 	printf("Rotation:");
@@ -367,45 +397,7 @@ char ENCroCipher ()
 		r = rand() % 25;
 		printf("%d ",r);
 	}
-
-
-
-
-	return result;
-}
-
-// Rotation cipher decryption 
-double DECroCipher ()
-{
-
-
-}
-
-
-// Substitution cipher encryption
-double ENCsubCipher ()
-{
-
-}
-
-// Substitution cipher decryption
-double DECsubCipher ()
-{
-
-}
-
-//decrpyption with rotation cipher using text only
-
-
-
-// decryption with substitution cipher given text only
-
-
-
-
-
-
-
+	   	  
 
 
 
